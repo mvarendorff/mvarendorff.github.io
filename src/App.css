@@ -1,0 +1,37 @@
+.console {
+    background: black;
+    color: white;
+    font-family: monospace;
+    padding: 1em;
+    height: calc(100vh - 2em);
+    width: calc(100vw - 2em);
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: .2em;
+}
+
+/*https://stackoverflow.com/a/18249744/6707985*/
+p:after {
+    content: "";
+    display: inline-block;
+    width: 0;
+}
+
+input.prompt {
+    background-color: transparent;
+    border: unset;
+    color: white;
+    font-family: monospace;
+    flex-grow: 1;
+    min-width: 0;
+    padding: 0;
+}
+
+div.prompt-container {
+    display: flex;
+    width: 80vw;
+    height: 17px;
+    line-height: 17px;
+}

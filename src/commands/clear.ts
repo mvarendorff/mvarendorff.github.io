@@ -1,7 +1,12 @@
 import { CurrentLinesStore } from '../stores';
+import Command from './Command';
 
-const clear = () => {
-	CurrentLinesStore.clear();
+const Clear: Command = {
+	action: () => {
+		CurrentLinesStore.clear();
+	},
+	description: 'Clears the console',
+	name: 'clear'
 };
 
-export default clear;
+export default Clear;

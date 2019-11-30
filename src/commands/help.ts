@@ -1,16 +1,17 @@
 import {CurrentLinesStore} from '../stores';
 import Line from '../entities/Line';
+import Command from './Command';
 
-const help = () => {
-	['Available commands:',
-		'about: Shows information about this page',
-		'clear: Clears the console',
-		'cls: Alias of clear',
-		'email: Shows my mail address (please don\'t spam...)',
-		'help: Shows this help',
-		'github: Shows a link to my github profile',
-		'stackoverflow: Shows a link to my Stack Overflow profile',
-	].map(Line.out).forEach(CurrentLinesStore.addLine);
+import commands from './index';
+
+const Help: Command = {
+	action: () => {
+		const listing = Object.values(commands).map(c => `${c.name}: ${c.description}`);
+		['Available commands:', ...listing]
+			.map(Line.out).forEach(CurrentLinesStore.addLine);
+	},
+	description: 'Shows this help',
+	name: 'help'
 };
 
-export default help;
+export default Help;

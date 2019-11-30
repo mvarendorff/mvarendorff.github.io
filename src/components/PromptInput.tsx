@@ -37,13 +37,14 @@ export default class PromptInput extends React.Component<{}, {}> {
 
 		const restArgs = splits.join(' ');
 
-		const func = CommandConfig[actualCommand];
+		const cmd = CommandConfig[actualCommand];
 
-		if (func === undefined || func === null || typeof func !== 'function') {
+		if (cmd === undefined || cmd === null) {
 			CurrentLinesStore.addLine(new Line(`Could not find command "${actualCommand}".`, false, false));
 			return;
 		}
 
+		const func = cmd.action;
 		func(restArgs);
 	}
 

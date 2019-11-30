@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import {CurrentLinesStore} from '../stores';
 import CommandConfig from '../commands';
 import Line from '../entities/Line';
@@ -12,11 +12,11 @@ export default class PromptInput extends React.Component<{}, {}> {
 
 	input: HTMLInputElement | null | undefined;
 	
-	render() {
-		return <input ref={ref => this.input = ref} autoFocus={true} className={'prompt'} onKeyPress={this.keyHandler}/>;
+	render(): ReactElement {
+		return <input ref={(ref: HTMLInputElement): void => {this.input = ref;}} autoFocus={true} className={'prompt'} onKeyDown={this.keyHandler}/>;
 	}
 
-	keyHandler(ev: React.KeyboardEvent<HTMLInputElement>) {
+	keyHandler(ev: React.KeyboardEvent<HTMLInputElement>): void {
 		if (ev.key === 'Enter') {
 			const content = (ev.target as HTMLInputElement).value;
 			CurrentLinesStore.updatePrompt(content);
@@ -29,7 +29,7 @@ export default class PromptInput extends React.Component<{}, {}> {
 		}
 	}
 
-	handleCommand(command: string) {
+	handleCommand(command: string): void {
 		const splits = command.split(' ');
 		const actualCommand = splits.shift();
 
@@ -48,7 +48,7 @@ export default class PromptInput extends React.Component<{}, {}> {
 		func(restArgs);
 	}
 
-	focus() {
+	focus(): void {
 		this.input && this.input.focus();
 	}
 	

@@ -10,6 +10,7 @@
 p {
     margin-top: 0;
     margin-bottom: .2em;
+    cursor: default;
 }
 
 /*https://stackoverflow.com/a/18249744/6707985*/
@@ -27,6 +28,7 @@ input.prompt {
     flex-grow: 1;
     min-width: 0;
     padding: 0;
+    cursor: default;
 }
 
 div.prompt-container {

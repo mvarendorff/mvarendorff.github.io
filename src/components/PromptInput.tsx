@@ -26,6 +26,17 @@ export default class PromptInput extends React.Component<{}, {}> {
 
 			CurrentLinesStore.markOutputDone();
 			(ev.target as HTMLInputElement).value = '';
+		} else if (ev.key === 'Tab') {
+			ev.preventDefault();
+
+			const content = (ev.target as HTMLInputElement).value;
+			if (content.length < 2)
+				return;
+
+			const autoComplete = Object.keys(CommandConfig).filter(cmd => cmd.startsWith(content))[0];
+			if (autoComplete === undefined) return;
+
+			(ev.target as HTMLInputElement).value = autoComplete;
 		}
 	}
 

@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import {CurrentLinesStore, CommandHistoryStore} from '../stores';
+import {CommandHistoryStore, CurrentLinesStore} from '../stores';
 import CommandConfig from '../commands';
 import Line from '../entities/Line';
 
@@ -39,15 +39,10 @@ export default class PromptInput extends React.Component<{}, {}> {
 
 			(ev.target as HTMLInputElement).value = autoComplete;
 		} else if (ev.key === 'ArrowUp') {
-			const lastCommand = CommandHistoryStore.goBackAndGetPrevious();
-			(ev.target as HTMLInputElement).value = lastCommand;
+			(ev.target as HTMLInputElement).value = CommandHistoryStore.goBackAndGetPrevious();
 		} else if (ev.key === 'ArrowDown') {
-			const nextCommand = CommandHistoryStore.goForwardAndGetNext();
-			(ev.target as HTMLInputElement).value = nextCommand;
+			(ev.target as HTMLInputElement).value = CommandHistoryStore.goForwardAndGetNext();
 		}
-
-
-
 	}
 
 	handleCommand(command: string): void {

@@ -1,71 +1,82 @@
-import React, {ReactElement} from 'react';
-import {CommandHistoryStore, CurrentLinesStore} from '../stores';
-import CommandConfig from '../commands';
-import Line from '../entities/Line';
+import React, { ReactElement } from "react";
+import { CommandHistoryStore, CurrentLinesStore } from "../stores";
+import CommandConfig from "../commands";
+import Line from "../entities/Line";
 
 export default class PromptInput extends React.Component<{}, {}> {
-	constructor(props: {}) {
-		super(props);
-		this.keyHandler = this.keyHandler.bind(this);
-		this.handleCommand = this.handleCommand.bind(this);
-	}
+  constructor(props: {}) {
+    super(props);
+    this.keyHandler = this.keyHandler.bind(this);
+    this.handleCommand = this.handleCommand.bind(this);
+  }
 
-	input: HTMLInputElement | null | undefined;
-	
-	render(): ReactElement {
-		return <input ref={(ref: HTMLInputElement): void => {this.input = ref;}} autoFocus={true} className={'prompt'} onKeyDown={this.keyHandler}/>;
-	}
+  input: HTMLInputElement | null | undefined;
 
-	keyHandler(ev: React.KeyboardEvent<HTMLInputElement>): void {
-		if (ev.key === 'Enter') {
-			const content = (ev.target as HTMLInputElement).value;
-			CurrentLinesStore.updatePrompt(content);
-			ev.preventDefault();
+  render(): ReactElement {
+    return (
+      <input
+        ref={(ref: HTMLInputElement): void => {
+          this.input = ref;
+        }}
+        autoFocus={true}
+        className={"prompt"}
+        onKeyDown={this.keyHandler}
+      />
+    );
+  }
 
-			this.handleCommand(content);
+  keyHandler(ev: React.KeyboardEvent<HTMLInputElement>): void {
+    if (ev.key === "Enter") {
+      const content = (ev.target as HTMLInputElement).value;
+      CurrentLinesStore.updatePrompt(content);
+      ev.preventDefault();
 
-			CurrentLinesStore.markOutputDone();
-			CommandHistoryStore.addEntry(content);
-			(ev.target as HTMLInputElement).value = '';
-		} else if (ev.key === 'Tab') {
-			ev.preventDefault();
+      this.handleCommand(content);
 
-			const content = (ev.target as HTMLInputElement).value;
-			if (content.length < 2)
-				return;
+      CurrentLinesStore.markOutputDone();
+      CommandHistoryStore.addEntry(content);
+      (ev.target as HTMLInputElement).value = "";
+    } else if (ev.key === "Tab") {
+      ev.preventDefault();
 
-			const autoComplete = Object.keys(CommandConfig).filter(cmd => cmd.startsWith(content))[0];
-			if (autoComplete === undefined) return;
+      const content = (ev.target as HTMLInputElement).value;
+      if (content.length < 2) return;
 
-			(ev.target as HTMLInputElement).value = autoComplete;
-		} else if (ev.key === 'ArrowUp') {
-			(ev.target as HTMLInputElement).value = CommandHistoryStore.goBackAndGetPrevious();
-		} else if (ev.key === 'ArrowDown') {
-			(ev.target as HTMLInputElement).value = CommandHistoryStore.goForwardAndGetNext();
-		}
-	}
+      const autoComplete = Object.keys(CommandConfig).filter((cmd) =>
+        cmd.startsWith(content)
+      )[0];
+      if (autoComplete === undefined) return;
 
-	handleCommand(command: string): void {
-		const splits = command.split(' ');
-		const actualCommand = splits.shift();
+      (ev.target as HTMLInputElement).value = autoComplete;
+    } else if (ev.key === "ArrowUp") {
+      (ev.target as HTMLInputElement).value = CommandHistoryStore.goBackAndGetPrevious();
+    } else if (ev.key === "ArrowDown") {
+      (ev.target as HTMLInputElement).value = CommandHistoryStore.goForwardAndGetNext();
+    }
+  }
 
-		if (actualCommand === undefined) return;
+  handleCommand(command: string): void {
+    const splits = command.split(" ");
+    const actualCommand = splits.shift();
 
-		const restArgs = splits.join(' ');
+    if (actualCommand === undefined) return;
 
-		const cmd = CommandConfig[actualCommand];
+    const restArgs = splits.join(" ");
 
-		if (cmd === undefined || cmd === null) {
-			CurrentLinesStore.addLine(new Line(`Could not find command "${actualCommand}".`, false, false));
-			return;
-		}
+    const cmd = CommandConfig[actualCommand];
 
-		const func = cmd.action;
-		func(restArgs);
-	}
+    if (cmd === undefined || cmd === null) {
+      CurrentLinesStore.addLine(
+        new Line(`Could not find command "${actualCommand}".`, false, false)
+      );
+      return;
+    }
 
-	focus(): void {
-		this.input && this.input.focus();
-	}
-	
+    const func = cmd.action;
+    func(restArgs);
+  }
+
+  focus(): void {
+    this.input && this.input.focus();
+  }
 }

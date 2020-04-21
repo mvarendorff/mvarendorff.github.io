@@ -1,19 +1,19 @@
 export default class Line {
-	content: string;
-	hasPrompt: boolean;
-	acceptsInput: boolean;
+  content: string;
+  hasPrompt: boolean;
+  acceptsInput: boolean;
 
-	static out(content: string): Line {
-		return new Line(content, false, false);
-	}
+  static out(content: string): Line {
+    return new Line(content, false, false);
+  }
 
-	constructor(content: string, hasPrompt: boolean, acceptsInput: boolean) {
-		this.content = content;
-		this.hasPrompt = hasPrompt;
-		this.acceptsInput = acceptsInput;
-	}
+  constructor(content: string, hasPrompt: boolean, acceptsInput: boolean) {
+    this.content = content;
+    this.hasPrompt = hasPrompt;
+    this.acceptsInput = acceptsInput;
+  }
 
-	toString(): string {
-		return this.content;
-	}
+  toString(): string {
+    return this.content;
+  }
 }

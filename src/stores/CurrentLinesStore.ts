@@ -9,23 +9,23 @@ export default class CurrentLinesStore {
   ];
 
   @action.bound
-  addLine(line: Line) {
+  addLine(line: Line): void {
     this.lines.push(line);
   }
 
   @action.bound
-  updatePrompt(input: string) {
+  updatePrompt(input: string): void {
     this.lines[this.lines.length - 1] = new Line(input, true, false);
   }
 
   @action.bound
-  markOutputDone() {
+  markOutputDone(): void {
     this.addLine(Line.out(""));
     this.addLine(new Line("", true, true));
   }
 
   @action.bound
-  clear() {
+  clear(): void {
     this.lines.length = 0;
   }
 

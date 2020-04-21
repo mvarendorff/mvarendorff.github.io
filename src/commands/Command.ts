@@ -1,5 +1,5 @@
 interface Command {
-	action: (...args: any[]) => any;
+	action: (...args: string[]) => void;
 	description: string;
 	name: string;
 }

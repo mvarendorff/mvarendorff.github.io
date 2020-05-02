@@ -13,8 +13,6 @@ export default class PromptInput extends React.Component<{}, {}> {
   input: HTMLInputElement | null | undefined;
 
   render(): ReactElement {
-    console.log("Rendering PromptInput");
-
     return (
       <input
         ref={(ref: HTMLInputElement): void => {

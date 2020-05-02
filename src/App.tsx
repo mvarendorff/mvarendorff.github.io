@@ -12,10 +12,6 @@ const LineWithPrompt: React.FC<{
   line: Line;
   inputRef: (ref: PromptInput | null) => void;
 }> = ({ line, inputRef }) => {
-  console.log("Rendering LineWithPrompt");
-  console.log(PromptInput);
-  console.log("Imported PromptInput above");
-
   return (
     <div className={"prompt-container"}>
       <p>{window.location.toString() + ">" + line}</p>
@@ -39,7 +35,6 @@ export default class App extends React.Component {
   }
 
   render(): React.ReactNode {
-    console.log("Rendering App!");
     return (
       <div className="console" onClick={this.consoleClick}>
         {CurrentLinesStore.lines.map(this.lineToHtml)}

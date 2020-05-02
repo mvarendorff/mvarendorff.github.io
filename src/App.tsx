@@ -24,6 +24,10 @@ const LineWithPrompt: React.FC<{
   );
 };
 
+const LineWithoutPrompt: React.FC<{ line: Line }> = ({ line }) => (
+  <p>{line.toString()}</p>
+);
+
 @observer
 export default class App extends React.Component {
   inputRef: PromptInput | null | undefined;
@@ -49,11 +53,6 @@ export default class App extends React.Component {
   }
 
   lineToHtml = (line: Line, index: number): React.ReactNode => {
-    console.log("lineToHtml: " + line.toString() + " index " + index);
-    console.log(LineWithPrompt + "");
-    console.log(this.LineWithoutPrompt + "");
-    console.log("MARKER");
-
     return line.hasPrompt ? (
       <LineWithPrompt
         key={index.toString()}
@@ -63,11 +62,7 @@ export default class App extends React.Component {
         }}
       />
     ) : (
-      <this.LineWithoutPrompt key={index.toString()} line={line} />
+      <LineWithoutPrompt key={index.toString()} line={line} />
     );
   };
-
-  LineWithoutPrompt: React.FC<{ line: Line }> = ({ line }) => (
-    <p>{line.toString()}</p>
-  );
 }

@@ -3,7 +3,7 @@ import Line from "../entities/Line";
 
 export default class CurrentLinesStore {
   @observable lines: Array<Line> = [
-    new Line("Welcome to geisterfurz007.github.io!", false, false),
+    new Line("Welcome to mvarendorff.github.io!", false, false),
     new Line("Feel free to have a look around, there isn't a lot here yet but you might find a thing or two.", false, false),
     new Line("", true, true),
   ];

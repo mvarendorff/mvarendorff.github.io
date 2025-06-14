@@ -4,7 +4,7 @@ import Command from "./Command";
 
 const Github: Command = {
   action: () => {
-    CurrentLinesStore.addLine(Line.out("https://github.com/geisterfurz007"));
+    CurrentLinesStore.addLine(Line.out("https://github.com/mvarendorff"));
   },
   description: "Shows a link to my github profile",
   name: "github"
